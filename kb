@@ -1,0 +1,68 @@
+#!/bin/bash
+
+#############################################################
+# Help                                                      #
+#############################################################
+
+Help()
+{
+  # Display help
+  echo "" 
+  echo "bash POD |  Runs a bash of the specified pod"
+  echo "pods | Get pods"
+  echo "find_pod TERM | Search for pods that matches a term"
+  echo "-h | Get help " 
+}
+
+bash() {
+  local POD_ID=$1
+  if [ -z $POD_ID ]
+  then
+    echo "Error: You must specify a POD id."
+    Help
+    exit 1
+  fi
+    
+  printf "[%s] Running: %s bash\n" "$(date)" "$POD_ID"
+  kubectl exec -it $POD_ID -- bash
+}
+
+pods() {
+  printf "[%s] Getting pods...\n" "$(date)" 
+  kubectl get pods
+}
+
+# I think I should change this in the future
+find_pod() {
+  local TERM=$1
+  printf "[%s] Results for \"%s\":\n" "$(date)" "$TERM" 
+  kubectl get pods | grep $TERM
+}
+
+############################################################
+############################################################
+# Main program                                             #
+############################################################
+############################################################
+############################################################
+# Process the input options. Add options as needed.        #
+############################################################
+#Get options
+case "$1" in
+    "") exit;;
+    "-h") # Get help
+      Help
+      exit;;
+    bash) # Runs a container bash
+      "$@"
+      exit;;
+    pods) # Get pods
+      "$@"
+      exit;;
+    find_pod) # Search for pods that matches a term
+      "$@"
+      exit;;
+    *) # Invalid option
+      echo "Error: Invalid option. Use -h to get help"
+      exit 2;;
+esac
