@@ -7,11 +7,11 @@
 Help()
 {
   # Display help
-  echo "" 
-  echo "bash POD |  Runs a bash of the specified pod"
-  echo "pods | Get pods"
-  echo "find_pod TERM | Search for pods that matches a term"
-  echo "-h | Get help " 
+  printf "\nbash POD\n  Runs a bash of the specified pod\n"
+  printf "\npods\n  Get pods\n"
+  printf "\nfind_pod TERM\n  Search for pods that matches a term\n\n"
+  echo "-h" 
+  echo "  Get help"
 }
 
 bash() {
