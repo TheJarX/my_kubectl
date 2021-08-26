@@ -33,6 +33,16 @@ pods() {
 }
 
 # I think I should change this in the future
+find() {
+  local TO_FIND=$1
+  case $TO_FIND in
+    "pod") # Search a pod by a term
+      find_pod $2
+      exit;;
+     "*") exit;;
+  esac
+  echo "finding"
+}
 find_pod() {
   local TERM=$1
   printf "[%s] Results for \"%s\":\n" "$(date)" "$TERM" 
@@ -59,7 +69,10 @@ case "$1" in
     pods) # Get pods
       "$@"
       exit;;
-    find_pod) # Search for pods that matches a term
+    find) # find
+      "$@"
+      exit;;
+   find_pod) # Search for pods that matches a term
       "$@"
       exit;;
     *) # Invalid option
