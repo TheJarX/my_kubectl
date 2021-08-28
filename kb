@@ -12,6 +12,7 @@ Help()
   printf "\nfind_pod TERM\n  Search for pods that matches a term\n\n"
   echo "-h" 
   echo "  Get help"
+  printf "\nfind TYPE TERM\n  Search for object of an specific type that matches a term; e.g. find pod my_pod\n\n"
 }
 
 bash() {
@@ -39,7 +40,10 @@ find() {
     "pod") # Search a pod by a term
       find_pod $2
       exit;;
-     "*") exit;;
+     "*") 
+       echo "Error: Invalid option."
+       Help
+       exit 2;;
   esac
   echo "finding"
 }
